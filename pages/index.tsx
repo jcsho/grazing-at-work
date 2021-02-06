@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Canvas, Vector3 } from "react-three-fiber";
+import { Suspense } from "react";
+import { Canvas } from "react-three-fiber";
 import Layout from "../components/Layout";
 import Lights from "../components/Lights";
 import Model from "../components/Model";
@@ -10,7 +10,9 @@ const Index = () => {
     <Layout title="Hashnode Vercel Hackathon Submission - Justin">
       <Canvas colorManagement camera={{ position: [5, 5, 5] }}>
         <Lights />
-        <Model />
+        <Suspense fallback={null}>
+          <Model />
+        </Suspense>
         <Terrain />
       </Canvas>
     </Layout>
