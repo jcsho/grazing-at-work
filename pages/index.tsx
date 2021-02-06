@@ -1,10 +1,20 @@
+import { useState } from "react";
+import { Canvas, Vector3 } from "react-three-fiber";
 import Layout from "../components/Layout";
-import Scene from "../components/Scene";
+import Lights from "../components/Lights";
+import Model from "../components/Model";
+import Terrain from "../components/Terrain";
 
-const IndexPage = () => (
-  <Layout title="Hashnode Vercel Hackathon Submission - Justin">
-    <Scene></Scene>
-  </Layout>
-);
+const Index = () => {
+  return (
+    <Layout title="Hashnode Vercel Hackathon Submission - Justin">
+      <Canvas colorManagement camera={{ position: [5, 5, 5] }}>
+        <Lights />
+        <Model />
+        <Terrain />
+      </Canvas>
+    </Layout>
+  );
+};
 
-export default IndexPage;
+export default Index;
