@@ -1,11 +1,13 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useFrame } from "react-three-fiber";
+import { useFrame, useThree } from "react-three-fiber";
 import { Mesh, SkinnedMesh, Vector3 } from "three";
+import { getRandomValueFromObject } from "../utils/Helpers";
 
 export enum ModelState {
   Idle,
   Moving,
+  Emoting,
 }
 
 // Animations from GLB file
@@ -24,6 +26,15 @@ enum Actions {
   Walk = "Walk",
 }
 
+export const Mood = {
+  Happy: Actions.Spin,
+  Calm: Actions.Munch,
+  Sad: Actions.Clicked,
+  Scared: Actions.Death,
+};
+
+const IDLE_TIME = 3; // seconds
+
 interface ModelProps {
   modelPosition: Vector3;
   modelState: ModelState;
@@ -35,10 +46,11 @@ const Model: React.FC<ModelProps> = ({
   modelState,
   setModelState,
 }) => {
-  const { nodes, materials, animations } = useGLTF("/glb/ox.glb");
+  const { nodes, materials, animations } = useGLTF("/ox.glb");
   const { ref, actions } = useAnimations(animations);
 
   const [action, setAction] = useState<Actions>(Actions.Idle);
+  const [timer, setTimer] = useState<number>(0);
 
   /* Change Animations */
   useEffect(() => {
@@ -48,7 +60,6 @@ const Model: React.FC<ModelProps> = ({
 
   /* Change State */
   useEffect(() => {
-    console.log(ModelState[modelState]);
     switch (modelState) {
       case ModelState.Idle:
         setAction(Actions.Idle);
@@ -56,16 +67,26 @@ const Model: React.FC<ModelProps> = ({
       case ModelState.Moving:
         setAction(Actions.Run);
         break;
+      case ModelState.Emoting:
+        let randomMood = getRandomValueFromObject(Mood);
+        setAction(randomMood);
+        break;
     }
   }, [modelState]);
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     ref.current.lookAt(modelPosition);
     if (ref.current.position.distanceTo(modelPosition) > 1) {
       ref.current.position.lerp(modelPosition, 0.05);
       setModelState(ModelState.Moving);
     } else if (modelState === ModelState.Moving) {
       setModelState(ModelState.Idle);
+    }
+
+    setTimer(timer + clock.getDelta() * 100);
+    if (modelState === ModelState.Idle && Math.floor(timer) % IDLE_TIME === 0) {
+      setModelState(ModelState.Emoting);
+      setTimer(0);
     }
   });
 
