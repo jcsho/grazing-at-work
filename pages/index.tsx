@@ -1,9 +1,12 @@
+import { Environment } from "@react-three/drei";
 import { Suspense, useState } from "react";
 import { Canvas } from "react-three-fiber";
 import { Vector3 } from "three";
+import CameraControls from "../components/CameraControls";
 import Layout from "../components/Layout";
 import Lights from "../components/Lights";
 import Model, { ModelState } from "../components/Model";
+import SkyBox from "../components/SkyBox";
 import Terrain from "../components/Terrain";
 
 const Index = () => {
@@ -15,7 +18,11 @@ const Index = () => {
   return (
     <Layout title="Hashnode Vercel Hackathon Submission - Justin">
       <Canvas colorManagement camera={{ position: [5, 5, 5] }}>
+        <CameraControls />
         <Lights />
+        <Suspense fallback={null}>
+          <SkyBox />
+        </Suspense>
         <Suspense fallback={null}>
           <Model
             modelPosition={modelPosition}
@@ -23,7 +30,9 @@ const Index = () => {
             setModelState={setModelState}
           />
         </Suspense>
-        <Terrain setModelPosition={setModelPosition} />
+        <Suspense fallback={null}>
+          <Terrain setModelPosition={setModelPosition} />
+        </Suspense>
       </Canvas>
     </Layout>
   );
