@@ -1,4 +1,3 @@
-import { Environment } from "@react-three/drei";
 import { Suspense, useState } from "react";
 import { Canvas } from "react-three-fiber";
 import { Vector3 } from "three";
