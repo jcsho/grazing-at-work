@@ -1,12 +1,15 @@
+import dynamic from "next/dynamic";
 import { Loader } from "@react-three/drei";
 import { Suspense, useState } from "react";
 import { Canvas } from "react-three-fiber";
 import { Vector3 } from "three";
 import Layout from "../components/Layout";
 import Lights from "../components/Lights";
-import Model, { ModelState } from "../components/Model";
-import SkyBox from "../components/SkyBox";
-import Terrain from "../components/Terrain";
+import { ModelState } from "../components/Model";
+
+const Model = dynamic(() => import("../components/Model"), { ssr: false });
+const SkyBox = dynamic(() => import("../components/SkyBox"), { ssr: false });
+const Terrain = dynamic(() => import("../components/Terrain"), { ssr: false });
 
 const Index = () => {
   const [modelPosition, setModelPosition] = useState<Vector3>(
