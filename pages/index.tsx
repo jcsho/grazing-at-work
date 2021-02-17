@@ -15,7 +15,7 @@ const Index = () => {
   const [modelState, setModelState] = useState<ModelState>(ModelState.Idle);
 
   return (
-    <Layout title="Hashnode Vercel Hackathon Submission - Justin">
+    <Layout title="Grazing At Work">
       <Canvas colorManagement camera={{ position: [5, 5, 5] }}>
         <Lights />
         <Suspense fallback={null}>
