@@ -7,7 +7,9 @@ interface TerrainProps {
 }
 
 const Terrain: React.FC<TerrainProps> = ({ setModelPosition }) => {
-  const { nodes, materials } = useGLTF("/terrain-valley.glb");
+  const { nodes, materials } = useGLTF(
+    process.env.NEXT_PUBLIC_GAW_MODEL_TERRAIN
+  );
 
   const handleOnClick = (intersection: Intersection[]) => {
     if (intersection.length > 0) {

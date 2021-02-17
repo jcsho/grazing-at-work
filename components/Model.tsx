@@ -1,6 +1,6 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useFrame, useThree } from "react-three-fiber";
+import { useFrame } from "react-three-fiber";
 import { Mesh, SkinnedMesh, Vector3 } from "three";
 import { getRandomValueFromObject } from "../utils/Helpers";
 
@@ -46,7 +46,9 @@ const Model: React.FC<ModelProps> = ({
   modelState,
   setModelState,
 }) => {
-  const { nodes, materials, animations } = useGLTF("/ox.glb");
+  const { nodes, materials, animations } = useGLTF(
+    process.env.NEXT_PUBLIC_GAW_MODEL_OX
+  );
   const { ref, actions } = useAnimations(animations);
 
   const [action, setAction] = useState<Actions>(Actions.Idle);
