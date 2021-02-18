@@ -16,3 +16,7 @@
 .icon:hover {
   transform: scale(1.05);
 }
+
+.text {
+  font-size: 0.8em;
+}

@@ -30,6 +30,10 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => (
         href="/favicon-16x16.png"
       />
       <link rel="manifest" href="/site.webmanifest" />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..900&display=swap"
+      />
     </Head>
     {children}
   </>

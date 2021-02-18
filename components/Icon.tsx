@@ -25,7 +25,7 @@ const Icon: React.FC<IconProps> = ({
       onMouseLeave={() => setHover(false)}
     >
       {hover ? (
-        hoverText
+        <p className={styles.text}>{hoverText}</p>
       ) : (
         <Image
           src={imageUrl}

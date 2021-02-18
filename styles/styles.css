@@ -19,6 +19,8 @@ body {
   color: black;
   transition: 0.4s ease-in-out;
   overflow: hidden;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
 }
 
 #__next-prerender-indicator {
