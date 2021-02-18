@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import Footer from "./Footer";
+import Header from "./Header";
 
 interface LayoutProps {
   children?: ReactNode;
@@ -36,6 +37,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => (
         href="https://fonts.googleapis.com/css2?family=Rubik:wght@400..900&display=swap"
       />
     </Head>
+    <Header title={title} />
     {children}
     <Footer />
   </>

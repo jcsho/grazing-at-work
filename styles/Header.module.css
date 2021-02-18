@@ -1,0 +1,12 @@
+.header {
+  margin: 0.5em;
+  color: #fff;
+  font-weight: 900;
+  font-size: 3em;
+  opacity: 0.6;
+  cursor: default;
+}
+
+.header:hover {
+  opacity: 1;
+}
