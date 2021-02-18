@@ -30,6 +30,15 @@ canvas {
   z-index: 0;
 }
 
+a {
+  color: #455a64;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #455a64;
+}
+
 .overlay {
   position: absolute;
   z-index: 7;
@@ -41,24 +50,4 @@ canvas {
   display: flex;
   flex-direction: row;
   padding: 1em 3em;
-}
-
-.footer__icon {
-  background: #fff;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  margin: 1em;
-  opacity: 0.6;
-  transition-duration: 0.2s;
-  transition-timing-function: cubic-bezier(0.5, -0.5, 0.5, 1.5);
-}
-
-.footer__icon:hover {
-  opacity: 1;
-  transform: scale(1.05);
 }

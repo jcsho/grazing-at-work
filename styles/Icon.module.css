@@ -1,0 +1,18 @@
+.icon {
+  background: #fff;
+  border-radius: 50%;
+  width: 4em;
+  height: 4em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  margin: 1em;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.5, -0.5, 0.5, 1.5);
+}
+
+.icon:hover {
+  transform: scale(1.05);
+}
