@@ -6,6 +6,7 @@ import { Vector3 } from "three";
 import Layout from "../components/Layout";
 import Lights from "../components/Lights";
 import { ModelState } from "../components/Model";
+import Footer from "../components/Footer";
 
 const Model = dynamic(() => import("../components/Model"), { ssr: false });
 const SkyBox = dynamic(() => import("../components/SkyBox"), { ssr: false });
@@ -19,7 +20,7 @@ const Index = () => {
 
   return (
     <Layout title="Grazing At Work">
-      <Canvas colorManagement camera={{ position: [5, 5, 5] }}>
+      <Canvas concurrent colorManagement camera={{ position: [26, 18, 20] }}>
         <Lights />
         <Suspense fallback={null}>
           <SkyBox />
@@ -36,6 +37,7 @@ const Index = () => {
         </Suspense>
       </Canvas>
       <Loader />
+      <Footer />
     </Layout>
   );
 };
