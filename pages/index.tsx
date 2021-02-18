@@ -37,7 +37,6 @@ const Index = () => {
         </Suspense>
       </Canvas>
       <Loader />
-      <Footer />
     </Layout>
   );
 };

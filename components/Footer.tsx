@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Icon from "./Icon";
 
 const Footer = () => {
   return (
     <>
-      <div className="overlay footer">
+      <footer className="overlay footer">
         <Icon
           imageUrl="/bookmark.svg"
           altText="Licenses"
@@ -19,7 +18,7 @@ const Footer = () => {
             hoverText="Source Code"
           />
         </a>
-      </div>
+      </footer>
     </>
   );
 };
