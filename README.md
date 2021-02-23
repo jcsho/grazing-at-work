@@ -21,5 +21,6 @@ Virtual Pet Ox to Accompany Your Music Listening (currently only Spotify).
   - [Low Poly Terrain](https://assetstore.unity.com/packages/3d/props/low-poly-ultimate-pack-54733)
   - [Sky Box](https://assetstore.unity.com/packages/3d/simple-sky-cartoon-assets-42373)
 - Icons
+  - [Ox Favicons](https://github.com/twitter/twemoji/blob/master/assets/svg/1f402.svg)
   - [GitHub Icon](https://icons8.com/icon/63777/github)
   - [Bookmark Icon](https://icons8.com/icon/6gjMYN1kVuDA/bookmark-documents)
