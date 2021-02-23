@@ -1,8 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { setSpotifyCookie, spotifyApi } from "../../utils/Spotify";
+import { setSpotifyCookie, spotifyApi, stateToken } from "../../utils/Spotify";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { code, error } = req.query;
+  const { code, error, state } = req.query;
+
+  if (state !== stateToken) {
+    console.warn("Possible CSRF attack: " + req);
+    return Promise.reject("Unable to authenticate with Spotify");
+  }
 
   if (error) {
     console.error("Spotify authorization failed: " + error);
