@@ -4,6 +4,9 @@ const withTM = require("next-transpile-modules")([
 ]);
 
 module.exports = withTM({
+  images: {
+    domains: [process.env.IMAGE_DOMAIN],
+  },
   webpack: (config) => {
     config.module.rules.push({
       // MUST BE USED for the Loader component from drei
