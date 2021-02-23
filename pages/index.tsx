@@ -6,13 +6,29 @@ import { Vector3 } from "three";
 import Layout from "../components/Layout";
 import Lights from "../components/Lights";
 import { ModelState } from "../components/Model";
-import Footer from "../components/Footer";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import nookies from "nookies";
 
 const Model = dynamic(() => import("../components/Model"), { ssr: false });
 const SkyBox = dynamic(() => import("../components/SkyBox"), { ssr: false });
 const Terrain = dynamic(() => import("../components/Terrain"), { ssr: false });
 
-const Index = () => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const { spotify_access_token } = nookies.get(context);
+  const isLoggedIn: boolean = spotify_access_token ? true : false;
+
+  return {
+    props: {
+      isLoggedIn,
+    },
+  };
+};
+
+const Index = ({
+  isLoggedIn,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [modelPosition, setModelPosition] = useState<Vector3>(
     new Vector3(0, 0, 0)
   );
