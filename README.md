@@ -7,7 +7,8 @@ Virtual Pet Ox to Accompany Your Music Listening (currently only Spotify).
 
 ## Features
 - Interactive 3D Ox model that responds to mouse clicks and (optionally) Spotify music moods
-- SSR React using NextJS, Spotify OAuth and proxy data retrieval using Vercel serverless functions (AWS Lambda)
+- SSR React using NextJS + Typescript
+- Spotify OAuth and proxy-ed data retrieval using Vercel serverless functions (AWS Lambda)
 
 ## Getting Started
 
@@ -17,10 +18,10 @@ Virtual Pet Ox to Accompany Your Music Listening (currently only Spotify).
 
 ## Licenses + Credits
 - 3D Models
-  - [Oof the Ox](https://assetstore.unity.com/packages/3d/characters/animals/mammals/oof-the-ox-quirky-series-169571)
-  - [Low Poly Terrain](https://assetstore.unity.com/packages/3d/props/low-poly-ultimate-pack-54733)
-  - [Sky Box](https://assetstore.unity.com/packages/3d/simple-sky-cartoon-assets-42373)
+  - [Oof the Ox](https://assetstore.unity.com/packages/3d/characters/animals/mammals/oof-the-ox-quirky-series-169571) by [@Polydactyl](https://omabuarts.com/)
+  - [Low Poly Terrain](https://assetstore.unity.com/packages/3d/props/low-poly-ultimate-pack-54733) by [@polyperfect](https://polyperfect.com/)
+  - [Sky Box](https://assetstore.unity.com/packages/3d/simple-sky-cartoon-assets-42373) by [@syntystudios](https://www.syntystudios.com/)
 - Icons
-  - [Ox Favicons](https://github.com/twitter/twemoji/blob/master/assets/svg/1f402.svg)
-  - [GitHub Icon](https://icons8.com/icon/63777/github)
-  - [Bookmark Icon](https://icons8.com/icon/6gjMYN1kVuDA/bookmark-documents)
+  - [Ox Favicons](https://github.com/twitter/twemoji/blob/master/assets/svg/1f402.svg) by [@twitter](https://twemoji.twitter.com/)
+  - [GitHub Icon](https://icons8.com/icon/63777/github) [@icons8](https://icons8.com/)
+  - [Bookmark Icon](https://icons8.com/icon/6gjMYN1kVuDA/bookmark-documents) [@icons8](https://icons8.com/)
