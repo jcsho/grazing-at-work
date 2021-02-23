@@ -5,7 +5,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { code, error, state } = req.query;
 
   if (state !== stateToken) {
-    console.warn("Possible CSRF attack: " + req);
+    console.warn("Possible CSRF attack");
+    console.warn(`Expected state token: ${stateToken}`);
+    console.warn(`Returned state token: ${state}`);
+    console.info(req);
     return Promise.reject("Unable to authenticate with Spotify");
   }
 
