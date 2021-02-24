@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (error) {
     console.error("Spotify authorization failed: " + error);
-    res.redirect(407, process.env.APP_URL);
+    res.redirect(401, process.env.APP_URL);
     return Promise.reject("Unable to authenticate with Spotify");
   }
 
@@ -34,7 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     );
   } catch (error) {
     console.error("Unable to retrieve access and refresh tokens: " + error);
-    res.redirect(407, process.env.APP_URL);
+    res.redirect(401, process.env.APP_URL);
     return Promise.reject("Unable to authenticate with Spotify");
   }
   res.redirect(302, process.env.APP_URL);
