@@ -1,9 +1,14 @@
+const withPlugins = require("next-compose-plugins");
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const withTM = require("next-transpile-modules")([
   "three",
   "@react-three/drei",
 ]);
 
-module.exports = withTM({
+const nextConfig = {
   images: {
     domains: [process.env.IMAGE_DOMAIN],
   },
@@ -16,4 +21,6 @@ module.exports = withTM({
     });
     return config;
   },
-});
+};
+
+module.exports = withPlugins([[withBundleAnalyzer], [withTM]], nextConfig);
