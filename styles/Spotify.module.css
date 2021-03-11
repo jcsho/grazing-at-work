@@ -1,0 +1,38 @@
+.column {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.player {
+  background-color: #fff;
+  border-radius: 1em;
+  margin: 2em;
+  width: 15em;
+  height: 5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5em;
+}
+
+.track-name {
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.track-artists {
+  font-weight: 100;
+  overflow: hidden;
+  font-size: 0.75em;
+  max-width: 120px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -8,6 +8,8 @@ import Lights from "../components/Lights";
 import { ModelState } from "../components/Model";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import nookies from "nookies";
+import Spotify from "../components/Spotify";
+import { setSpotifyCookie, spotifyApi } from "../utils/Spotify";
 
 const Model = dynamic(() => import("../components/Model"), { ssr: false });
 const SkyBox = dynamic(() => import("../components/SkyBox"), { ssr: false });
@@ -16,8 +18,22 @@ const Terrain = dynamic(() => import("../components/Terrain"), { ssr: false });
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { spotify_access_token } = nookies.get(context);
-  const isLoggedIn: boolean = spotify_access_token ? true : false;
+  const { spotify_refresh_token } = nookies.get(context);
+  let isLoggedIn = false;
+
+  if (spotify_refresh_token) {
+    spotifyApi.setRefreshToken(spotify_refresh_token);
+    const { body } = await spotifyApi.refreshAccessToken();
+    if (body.access_token) {
+      setSpotifyCookie(
+        context,
+        "spotify_access_token",
+        body.access_token,
+        body.expires_in
+      );
+      isLoggedIn = true;
+    }
+  }
 
   return {
     props: {
@@ -36,6 +52,7 @@ const Index = ({
 
   return (
     <Layout title="Grazing At Work">
+      <Spotify isLoggedIn={isLoggedIn} />
       <Canvas concurrent colorManagement camera={{ position: [26, 18, 20] }}>
         <Lights />
         <Suspense fallback={null}>

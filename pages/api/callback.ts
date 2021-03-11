@@ -21,13 +21,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const tokens = await spotifyApi.authorizationCodeGrant(code as string);
     setSpotifyCookie(
-      res,
+      { res },
       "spotify_access_token",
       tokens.body.access_token,
       tokens.body.expires_in * 1000
     );
     setSpotifyCookie(
-      res,
+      { res },
       "spotify_refresh_token",
       tokens.body.refresh_token,
       tokens.body.expires_in * 1000

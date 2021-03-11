@@ -11,7 +11,7 @@ const handler = async (
   res: NextApiResponse
 ) => {
   const currentTrack = await getCurrentTrack(req.spotifyApi);
-  res.status(200).json({ track: currentTrack });
+  res.status(200).json(currentTrack);
 };
 
 export default withSpotifyAuth(handler, spotifyApi);

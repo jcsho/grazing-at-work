@@ -10,7 +10,7 @@ const withTM = require("next-transpile-modules")([
 
 const nextConfig = {
   images: {
-    domains: [process.env.IMAGE_DOMAIN],
+    domains: process.env.IMAGE_DOMAINS.split(","),
   },
   webpack: (config) => {
     config.module.rules.push({

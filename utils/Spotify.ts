@@ -1,4 +1,9 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import {
+  NextApiHandler,
+  NextApiRequest,
+  NextApiResponse,
+  NextPageContext,
+} from "next";
 import nookies, { setCookie } from "nookies";
 import crypto from "crypto";
 import SpotifyWebApi from "spotify-web-api-node";
@@ -24,12 +29,12 @@ export const spotifyApi = new SpotifyWebApi({
 export const authorizeUrl = spotifyApi.createAuthorizeURL(scopes, stateToken);
 
 export const setSpotifyCookie = (
-  res: NextApiResponse,
+  ctx: Pick<NextPageContext, "res"> | { res: NextApiResponse<any> },
   key: string,
   value: string | any,
   expiry: number
 ) => {
-  setCookie({ res }, key, value, {
+  nookies.set(ctx, key, value, {
     domain: process.env.NODE_ENV === "production" ?? process.env.APP_URL,
     expires: new Date(Date.now() + expiry),
     httpOnly: true,
@@ -46,31 +51,28 @@ export const setSpotifyCookie = (
 export const isPlaying = async (api: SpotifyWebApi): Promise<boolean> => {
   try {
     const { body } = await api.getMyCurrentPlaybackState();
-    if (body && body.is_playing) {
-      return Promise.resolve(true);
-    }
-    return Promise.resolve(false);
+    if (body && body.is_playing) return true;
   } catch (error) {
     console.error(
       "[utils/Spotify.ts:isPlaying:53] Unable to get playback state"
     );
     console.info(api);
     console.info(error);
-    return Promise.resolve(false);
   }
+  return false;
 };
 
 export interface Track {
-  isPlaying: boolean;
-  albumId: string;
-  albumName: string;
-  artistIds: string[];
-  artistNames: string[];
-  id: string;
-  name: string;
-  image: string;
-  duration: number;
-  progress: number;
+  isPlaying?: boolean;
+  albumId?: string;
+  albumName?: string;
+  artistIds?: string[];
+  artistNames?: string[];
+  id?: string;
+  name?: string;
+  image?: string;
+  duration?: number;
+  progress?: number;
 }
 
 /**
@@ -78,33 +80,30 @@ export interface Track {
  * @param api - SpotifyWebApi object with access token and refresh token
  */
 export const getCurrentTrack = async (api: SpotifyWebApi): Promise<Track> => {
+  const currentTrack: Track = {};
   try {
     const { body } = await api.getMyCurrentPlayingTrack();
-    if (body) {
-      const track: Track = {
-        isPlaying: body.is_playing,
-        albumId: body.item.album.id,
-        albumName: body.item.album.name,
-        artistIds: body.item.artists.map((artist) => artist.id),
-        artistNames: body.item.artists.map((artist) => artist.name),
-        id: body.item.id,
-        name: body.item.name,
-        image:
-          body.item.album.images.length > 0
-            ? body.item.album.images[0].url
-            : "",
-        duration: body.item.duration_ms,
-        progress: body.progress_ms,
-      };
-      return Promise.resolve(track);
-    }
-    return Promise.resolve({} as Track);
+    currentTrack.isPlaying = body?.is_playing;
+    currentTrack.albumId = body?.item?.album?.id;
+    currentTrack.albumName = body?.item?.album?.name;
+    currentTrack.artistIds = body?.item?.artists?.map((artist) => artist.id);
+    currentTrack.artistNames = body?.item?.artists?.map(
+      (artist) => artist.name
+    );
+    currentTrack.id = body?.item?.id;
+    currentTrack.name = body?.item?.name;
+    currentTrack.image = body?.item?.album?.images[0]?.url;
+    currentTrack.duration = body?.item?.duration_ms;
+    currentTrack.progress = body?.progress_ms;
+    Object.keys(currentTrack).forEach((key) =>
+      currentTrack[key] === undefined ? delete currentTrack[key] : {}
+    );
   } catch (error) {
     console.warn("[utils/Spotify.ts:101] Failed to get current user track");
     console.info(api);
     console.info(error);
-    return Promise.resolve({} as Track);
   }
+  return currentTrack;
 };
 
 /**
@@ -125,19 +124,27 @@ export const withSpotifyAuth = (
   handler: NextApiHandler,
   spotifyApi: SpotifyWebApi
 ) => async (req: NextApiRequestWithSpotifyAuth, res: NextApiResponse) => {
-  const { spotify_access_token, spotify_refresh_token } = nookies.get({
+  const { spotify_refresh_token } = nookies.get({
     req,
   });
 
-  if (!spotify_access_token || !spotify_refresh_token) {
-    return res
-      .status(401)
-      .json({ status: 401, message: "Unauthenticated access" });
-  }
+  spotifyApi.setRefreshToken(spotify_refresh_token);
 
-  req.spotifyApi = spotifyApi;
-  req.spotifyApi.setAccessToken(spotify_access_token);
-  req.spotifyApi.setRefreshToken(spotify_refresh_token);
+  const { body } = await spotifyApi.refreshAccessToken();
+
+  if (body.access_token) {
+    spotifyApi.setAccessToken(body.access_token);
+    setSpotifyCookie(
+      { res },
+      "spotify_access_token",
+      body.access_token,
+      body.expires_in
+    );
+    req.spotifyApi = spotifyApi;
+  } else {
+    res.status(401);
+    res.redirect(authorizeUrl);
+  }
 
   return handler(req, res);
 };
