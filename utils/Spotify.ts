@@ -35,7 +35,8 @@ export const setSpotifyCookie = (
   expiry: number
 ) => {
   nookies.set(ctx, key, value, {
-    domain: process.env.NODE_ENV === "production" ? process.env.APP_URL : null,
+    domain:
+      process.env.NODE_ENV === "production" ? process.env.APP_DOMAIN : null,
     expires: new Date(Date.now() + expiry),
     httpOnly: true,
     path: "/",
