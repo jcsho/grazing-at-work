@@ -3,7 +3,7 @@
 Celebrating Year Of The Ox 2021.
 Virtual Pet Ox to Accompany Your Music Listening (currently only Spotify).
 
-![Preview of Website](https://github.com/justinhodev/grazing-at-work/blob/master/docs/preview.png)
+![Preview of Website](https://github.com/jcsho/grazing-at-work/blob/master/docs/preview.png)
 
 ## Features
 - Interactive 3D Ox model that responds to mouse clicks and (optionally) Spotify music moods
@@ -23,5 +23,5 @@ Virtual Pet Ox to Accompany Your Music Listening (currently only Spotify).
   - [Sky Box](https://assetstore.unity.com/packages/3d/simple-sky-cartoon-assets-42373) by [@syntystudios](https://www.syntystudios.com/)
 - Icons
   - [Ox Favicons](https://github.com/twitter/twemoji/blob/master/assets/svg/1f402.svg) by [@twitter](https://twemoji.twitter.com/)
-  - [GitHub Icon](https://icons8.com/icon/63777/github) [@icons8](https://icons8.com/)
-  - [Bookmark Icon](https://icons8.com/icon/6gjMYN1kVuDA/bookmark-documents) [@icons8](https://icons8.com/)
+  - [GitHub Icon](https://icons8.com/icon/63777/github) by [@icons8](https://icons8.com/)
+  - [Bookmark Icon](https://icons8.com/icon/6gjMYN1kVuDA/bookmark-documents) by [@icons8](https://icons8.com/)
